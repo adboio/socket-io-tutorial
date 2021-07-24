@@ -62,6 +62,7 @@ textarea {
   padding: 7px;
   border: none;
   outline: none;
+  font-family: 'Poppins', sans-serif;
 }
 
 input {
@@ -84,6 +85,7 @@ button {
   cursor: pointer;
   position: relative;
   transition: all 200ms ease-in-out;
+  font-family: 'Poppins', sans-serif;
 }
 
 button:hover {
