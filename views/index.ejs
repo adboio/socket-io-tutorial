@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>socket.IO Comments App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <div class="comment-form">
+
+      <h3>What's on your mind?</h3>
+
+      <form id="newCommentForm">
+        <input type="text" placeholder="Username" name="username"/>
+        <textarea name="message" placeholder="Spill the tea..." rows="3"></textarea>
+        <button type="submit">Submit <img src="/images/bolt-solid.svg"></button>
+      </form>
+
+    </div>
+
+    <div id="comments">
+
+      <div class="comment">
+        <div class="message">bro, socket.IO is so fire!</div>
+        <div class="username">adboio</div>
+      </div>
+
+      <div class="comment">
+        <div class="message">did you know a piece of paper can be folded no more than 9 times?</div>
+        <div class="username">the_paper_girl123</div>
+      </div>
+
+      <div class="comment">
+        <div class="message">what should i cook for dinner?</div>
+        <div class="username">hungryhungryhippo</div>
+      </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+      $('#newCommentForm').on('submit', (e) => {
+        e.preventDefault();
+        $.post('/', $('#newCommentForm').serialize(), () => {
+          $('#newCommentForm input, #newCommentForm textarea').val('');
+        })
+      })
+    </script>
+
+    <!-- start writing your socket code below! -->
+
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+    <script>
+      let socket = io();
+
+      socket.on('new comment', (data) => {
+
+        let newComment = `
+          <div class="comment">
+            <div class="message">${data.message}</div>
+            <div class="username">${data.username}</div>
+          </div>`;
+
+        $('#comments').prepend(newComment);
+
+      });
+    </script>
+
+  </body>
+</html>
